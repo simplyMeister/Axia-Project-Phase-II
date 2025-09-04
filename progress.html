@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Progress -EduConnect</title>
+    <link rel="shortcut icon" href="favicon-32x32.png" type="image/x-icon">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="CSS-STYLES/progress.css" />
+  </head>
+  <body class="font-body bg-gray-900">
+    <!-- Sidebar  -->
+    <div
+      id="sidebar"
+      class="sidebar fixed left-0 top-0 h-full w-64 shadow-lg z-50 md:translate-x-0"
+    >
+      <div class="p-6 border-b border-gray-200">
+        <h1 class="font-heading text-xl font-bold text-white">
+          <i class="fas fa-graduation-cap text-cyan-600 mr-2"></i>
+          EduConnect
+        </h1>
+      </div>
+      <nav class="mt-6">
+        <div class="px-4 mb-4">
+          <p
+            class="text-xs font-semibold text-gray-400 uppercase tracking-wider"
+          >
+            Main
+          </p>
+        </div>
+
+        <a
+          href="dashboard.html"
+          class="sidebar-link flex items-center px-6 py-3"
+        >
+          <i class="fas fa-home w-5 mr-3"></i>
+          Dashboard
+        </a>
+
+        <a href="courses.html" class="sidebar-link flex items-center px-6 py-3">
+          <i class="fas fa-book-open w-5 mr-3"></i>
+          Courses
+        </a>
+
+        <a
+          href="assignments.html"
+          class="sidebar-link flex items-center px-6 py-3"
+        >
+          <i class="fas fa-tasks w-5 mr-3"></i>
+          Assignments
+        </a>
+
+        <a href="profile.html" class="sidebar-link flex items-center px-6 py-3">
+          <i class="fas fa-user w-5 mr-3"></i>
+          Profile
+        </a>
+
+        <div class="px-4 mt-8 mb-4">
+          <p
+            class="text-xs font-semibold text-gray-400 uppercase tracking-wider"
+          >
+            Learning
+          </p>
+        </div>
+
+        <a
+          href="schedule.html"
+          class="sidebar-link flex items-center px-6 py-3"
+        >
+          <i class="fas fa-calendar w-5 mr-3"></i>
+          Schedule
+        </a>
+
+        <a
+          href="progress.html"
+          class="sidebar-link active flex items-center px-6 py-3"
+        >
+          <i class="fas fa-chart-line w-5 mr-3"></i>
+          Progress
+        </a>
+
+        <a
+          href="certificates.html"
+          class="sidebar-link flex items-center px-6 py-3"
+        >
+          <i class="fas fa-certificate w-5 mr-3"></i>
+          Certificates
+        </a>
+      </nav>
+      <!-- User Info at Bottom -->
+      <div
+        class="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-200"
+        style="bottom: -18px"
+      >
+        <div class="flex items-center">
+          <img
+            id="sidebar-user-avatar"
+            src="/placeholder.svg?height=40&width=40"
+            alt="User Avatar"
+            class="w-10 h-10 rounded-full"
+          />
+          <div class="ml-3 flex-1">
+            <p
+              id="sidebar-user-name"
+              class="text-sm font-medium text-white"
+            ></p>
+            <p class="text-xs text-gray-400">Student</p>
+          </div>
+          <button
+            onclick="logout()"
+            class="text-gray-400 hover:text-red-500 transition-colors"
+          >
+            <i class="fas fa-sign-out-alt"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- Main Content -->
+    <div class="md:ml-64 pb-24">
+      <header class="shadow-sm border-b border-gray-200 sticky top-0 z-30">
+        <div class="flex items-center justify-between px-6 py-4">
+          <h1 class="font-heading text-2xl p-1.5 font-bold text-white">
+            Progress Overview
+          </h1>
+        </div>
+      </header>
+      <main class="p-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- Widget: Overall Progress -->
+          <div
+            class="widget-card rounded-xl shadow-sm p-6 flex flex-col items-center"
+          >
+            <h3 class="font-heading text-lg font-semibold text-white mb-4">
+              Overall Progress
+            </h3>
+            <div class="relative w-24 h-24 mb-2">
+              <svg class="progress-ring w-24 h-24">
+                <circle
+                  cx="48"
+                  cy="48"
+                  r="40"
+                  stroke="#222"
+                  stroke-width="8"
+                  fill="transparent"
+                ></circle>
+                <circle
+                  cx="48"
+                  cy="48"
+                  r="40"
+                  stroke="#0891b2"
+                  stroke-width="8"
+                  fill="transparent"
+                  stroke-dasharray="251.2"
+                  stroke-dashoffset="75.36"
+                  class="progress-ring-circle"
+                ></circle>
+              </svg>
+              <div class="absolute inset-0 flex items-center justify-center">
+                <span class="text-2xl font-bold text-white">70%</span>
+              </div>
+            </div>
+            <p class="text-center text-gray-400">Great progress! Keep going.</p>
+          </div>
+          <!-- Widget: Course Completion -->
+          <div
+            class="widget-card rounded-xl shadow-sm p-6 flex flex-col items-center"
+          >
+            <h3 class="font-heading text-lg font-semibold text-white mb-4">
+              Courses Completed
+            </h3>
+            <div class="flex items-center justify-center mb-2">
+              <span class="text-4xl font-bold text-emerald-500 mr-2">8</span>
+              <span class="text-gray-400">/ 12</span>
+            </div>
+            <p class="text-center text-gray-400">67% completion rate</p>
+          </div>
+          <!-- Widget: Study Streak -->
+          <div
+            class="widget-card rounded-xl shadow-sm p-6 flex flex-col items-center"
+          >
+            <h3 class="font-heading text-lg font-semibold text-white mb-4">
+              Study Streak
+            </h3>
+            <div class="flex items-center justify-center mb-2">
+              <span class="text-4xl font-bold text-purple-500 mr-2">15</span>
+              <span class="text-gray-400">days</span>
+            </div>
+            <p class="text-center text-gray-400">Keep it up!</p>
+          </div>
+        </div>
+        <!-- Recent Activity -->
+        <div class="mt-8">
+          <h2 class="font-heading text-xl font-bold text-white mb-4">
+            Recent Activity
+          </h2>
+         
+<div class="widget-card rounded-xl shadow-sm p-6">
+  <ul class="space-y-3">
+   
+    <li class="flex items-start gap-3 p-3 rounded-lg hover:bg-gray-800 transition-colors">
+      <div class="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-full bg-cyan-700/30">
+        <i class="fas fa-check-circle text-cyan-500"></i>
+      </div>
+      <div class="flex-1">
+        <span class="block text-white font-medium">Completed "React Assignment #3"</span>
+        <span class="block text-xs text-gray-400 mt-1">Coursework &bull; Today</span>
+      </div>
+      <span class="text-xs font-semibold text-emerald-500 mt-1 whitespace-nowrap">Today</span>
+    </li>
+    <li class="flex items-start gap-3 p-3 rounded-lg hover:bg-gray-800 transition-colors">
+      <div class="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-full bg-purple-700/30">
+        <i class="fas fa-fire text-purple-400"></i>
+      </div>
+      <div class="flex-1">
+        <span class="block text-white font-medium">Achieved 10-day streak</span>
+        <span class="block text-xs text-gray-400 mt-1">Milestone &bull; 2 days ago</span>
+      </div>
+      <span class="text-xs font-semibold text-purple-500 mt-1 whitespace-nowrap">2 days ago</span>
+    </li>
+    <li class="flex items-start gap-3 p-3 rounded-lg hover:bg-gray-800 transition-colors">
+      <div class="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-full bg-pink-700/30">
+        <i class="fas fa-palette text-pink-400"></i>
+      </div>
+      <div class="flex-1">
+        <span class="block text-white font-medium">Attended Art Club Exhibition</span>
+        <span class="block text-xs text-gray-400 mt-1">Club Event &bull; 2 days ago</span>
+      </div>
+      <span class="text-xs font-semibold text-pink-400 mt-1 whitespace-nowrap">2 days ago</span>
+    </li>
+    <li class="flex items-start gap-3 p-3 rounded-lg hover:bg-gray-800 transition-colors">
+      <div class="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-full bg-blue-700/30">
+        <i class="fas fa-hands-helping text-blue-400"></i>
+      </div>
+      <div class="flex-1">
+        <span class="block text-white font-medium">Volunteered at Local Library</span>
+        <span class="block text-xs text-gray-400 mt-1">Volunteering &bull; 3 days ago</span>
+      </div>
+      <span class="text-xs font-semibold text-blue-400 mt-1 whitespace-nowrap">3 days ago</span>
+    </li>
+    <li class="flex items-start gap-3 p-3 rounded-lg hover:bg-gray-800 transition-colors">
+      <div class="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-full bg-green-700/30">
+        <i class="fas fa-book text-green-400"></i>
+      </div>
+      <div class="flex-1">
+        <span class="block text-white font-medium">Completed "Personal Finance Basics" Course</span>
+        <span class="block text-xs text-gray-400 mt-1">Coursework &bull; 4 days ago</span>
+      </div>
+      <span class="text-xs font-semibold text-green-400 mt-1 whitespace-nowrap">4 days ago</span>
+    </li>
+    <!-- Add these after your last <li> in the Recent Activity list -->
+<li class="flex items-start gap-3 p-3 rounded-lg hover:bg-gray-800 transition-colors">
+  <div class="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-full bg-orange-700/30">
+    <i class="fas fa-award text-orange-400"></i>
+  </div>
+  <div class="flex-1">
+    <span class="block text-white font-medium">Received "Student of the Month" Award</span>
+    <span class="block text-xs text-gray-400 mt-1">Recognition &bull; 5 days ago</span>
+  </div>
+  <span class="text-xs font-semibold text-orange-400 mt-1 whitespace-nowrap">5 days ago</span>
+</li>
+<li class="flex items-start gap-3 p-3 rounded-lg hover:bg-gray-800 transition-colors">
+  <div class="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-full bg-indigo-700/30">
+    <i class="fas fa-lightbulb text-indigo-400"></i>
+  </div>
+  <div class="flex-1">
+    <span class="block text-white font-medium">Presented Innovation Project at Science Fair</span>
+    <span class="block text-xs text-gray-400 mt-1">Science &bull; 6 days ago</span>
+  </div>
+  <span class="text-xs font-semibold text-indigo-400 mt-1 whitespace-nowrap">6 days ago</span>
+</li>
+<li class="flex items-start gap-3 p-3 rounded-lg hover:bg-gray-800 transition-colors">
+  <div class="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-full bg-red-700/30">
+    <i class="fas fa-heart text-red-400"></i>
+  </div>
+  <div class="flex-1">
+    <span class="block text-white font-medium">Participated in Blood Donation Drive</span>
+    <span class="block text-xs text-gray-400 mt-1">Community &bull; 7 days ago</span>
+  </div>
+  <span class="text-xs font-semibold text-red-400 mt-1 whitespace-nowrap">7 days ago</span>
+</li>
+<li class="flex items-start gap-3 p-3 rounded-lg hover:bg-gray-800 transition-colors">
+  <div class="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-full bg-teal-700/30">
+    <i class="fas fa-tree text-teal-400"></i>
+  </div>
+  <div class="flex-1">
+    <span class="block text-white font-medium">Joined Environmental Club</span>
+    <span class="block text-xs text-gray-400 mt-1">Club &bull; 8 days ago</span>
+  </div>
+  <span class="text-xs font-semibold text-teal-400 mt-1 whitespace-nowrap">8 days ago</span>
+</li>
+<li class="flex items-start gap-3 p-3 rounded-lg hover:bg-gray-800 transition-colors">
+  <div class="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-full bg-yellow-700/30">
+    <i class="fas fa-microphone text-yellow-400"></i>
+  </div>
+  <div class="flex-1">
+    <span class="block text-white font-medium">Hosted School Podcast Episode</span>
+    <span class="block text-xs text-gray-400 mt-1">Media &bull; 9 days ago</span>
+  </div>
+  <span class="text-xs font-semibold text-yellow-400 mt-1 whitespace-nowrap">9 days ago</span>
+</li>
+  </ul>
+  <li>
+    <ul>
+      <li class="flex items-start gap-3 p-3 rounded-lg hover:bg-gray-800 transition-colors">
+        <div class="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-full bg-gray-700/30">
+          <i class="fas fa-user-friends text-gray-400"></i>
+        </div>
+        <div class="flex-1">
+          <span class="block text-white font-medium">Joined "Math Study Group"</span>
+          <span class="block text-xs text-gray-400 mt-1">Group &bull; 10 days ago</span>
+        </div>
+    </ul>
+  </li>
+</div>
+
+        </div>
+      </main>
+    </div>
+     <!-- Toast Notification Container -->
+    <div id="toast-container" class="toast-container fixed"></div>
+    <script src="JS/profile.js"></script>
+  </body>
+</html>

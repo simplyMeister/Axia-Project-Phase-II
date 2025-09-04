@@ -1,0 +1,210 @@
+/* Theme Styles for Edu4u Technologies */
+
+/* Base Theme Variables */
+:root {
+    /* Default Theme (Dark) */
+    --bg-primary: #1a1a1a;
+    --bg-secondary: #2a2a2a;
+    --text-primary: #ffffff;
+    --text-secondary: #a0a0a0;
+    --accent-color: #10b981;
+    /* emerald-500 */
+    --accent-hover: #059669;
+    /* emerald-600 */
+    --card-bg: #2d2d2d;
+    --card-border: #3a3a3a;
+    --animation-speed: 15s;
+}
+
+/* Theme Transitions */
+body {
+    transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+.theme-transition * {
+    transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease;
+}
+
+/* Sunny Theme */
+body.theme-sunny {
+    --bg-primary: #f7f2e9;
+    --bg-secondary: #faf6f0;
+    --text-primary: #2d3748;
+    --text-secondary: #4a5568;
+    --accent-color: #f59e0b;
+    /* amber-500 */
+    --accent-hover: #d97706;
+    /* amber-600 */
+    --card-bg: #ffffff;
+    --card-border: #edf2f7;
+}
+
+/* Sunny Theme Background Effect */
+.sunny-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    background: radial-gradient(circle at 50% 50%, rgba(255, 236, 153, 0.2) 0%, rgba(255, 236, 153, 0) 70%);
+}
+
+body.theme-sunny .sunny-bg {
+    opacity: 1;
+}
+
+/* Emerald Wavy Theme */
+body.theme-emerald-wave {
+    --bg-primary: #0f172a;
+    --bg-secondary: #1e293b;
+    --text-primary: #f8fafc;
+    --text-secondary: #cbd5e1;
+    --accent-color: #10b981;
+    /* emerald-500 */
+    --accent-hover: #059669;
+    /* emerald-600 */
+    --card-bg: #1e293b;
+    --card-border: #334155;
+}
+
+/* Emerald Wave Animation */
+.wave-container {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    pointer-events: none;
+    overflow: hidden;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+body.theme-emerald-wave .wave-container {
+    opacity: 1;
+}
+
+.wave {
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    top: -50%;
+    left: -50%;
+    border-radius: 40%;
+    animation: wave var(--animation-speed) infinite linear;
+    background: radial-gradient(ellipse at center, rgba(16, 185, 129, 0) 0%, rgba(16, 185, 129, 0.05) 100%);
+}
+
+.wave:nth-child(2) {
+    animation-duration: calc(var(--animation-speed) * 1.5);
+    opacity: 0.3;
+    background: radial-gradient(ellipse at center, rgba(16, 185, 129, 0) 0%, rgba(16, 185, 129, 0.08) 100%);
+}
+
+.wave:nth-child(3) {
+    animation-duration: calc(var(--animation-speed) * 2);
+    opacity: 0.2;
+    background: radial-gradient(ellipse at center, rgba(16, 185, 129, 0) 0%, rgba(16, 185, 129, 0.06) 100%);
+}
+
+@keyframes wave {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Apply theme colors to elements */
+body {
+    background-color: var(--bg-primary) !important;
+    color: var(--text-primary) !important;
+}
+
+.bg-emerald-500 {
+    background-color: var(--accent-color) !important;
+}
+
+.hover\:bg-emerald-600:hover {
+    background-color: var(--accent-hover) !important;
+}
+
+.text-emerald-500 {
+    color: var(--accent-color) !important;
+}
+
+.hover\:text-emerald-500:hover {
+    color: var(--accent-color) !important;
+}
+
+.hover\:border-emerald-500:hover {
+    border-color: var(--accent-color) !important;
+}
+
+.bg-gray-800 {
+    background-color: var(--card-bg) !important;
+}
+
+.border-gray-700 {
+    border-color: var(--card-border) !important;
+}
+
+.text-gray-400 {
+    color: var(--text-secondary) !important;
+}
+
+/* Theme Switcher UI */
+.theme-switcher {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 100;
+    display: flex;
+    gap: 8px;
+}
+
+.theme-button {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 14px;
+}
+
+.theme-button:hover {
+    transform: scale(1.1);
+}
+
+.theme-button.active {
+    border-color: white;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+.theme-dark {
+    background-color: #1a1a1a;
+}
+
+.theme-sunny {
+    background-color: #f59e0b;
+}
+
+.theme-snowy {
+    background-color: #60a5fa;
+}
+
+.theme-emerald-wave {
+    background-color: #10b981;
+}

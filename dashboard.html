@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard - EduConnect</title>
+    <link rel="shortcut icon" href="favicon-32x32.png" type="image/x-icon">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="CSS-STYLES/dashboard.css" />
+  </head>
+  <body class="font-body bg-gray-900">
+    <!-- Mobile Sidebar Overlay -->
+    <div
+      id="sidebar-overlay"
+      class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden md:hidden"
+      onclick="toggleSidebar()"
+    ></div>
+
+    <!-- Sidebar -->
+    <div
+      id="sidebar"
+      class="sidebar fixed left-0 top-0 h-full w-64 shadow-lg z-50 md:translate-x-0"
+    >
+      <div class="p-6 border-b border-gray-200">
+        <h1 class="font-heading text-xl font-bold text-white">
+          <i class="fas fa-graduation-cap text-cyan-600 mr-2"></i>
+          EduConnect
+        </h1>
+      </div>
+
+      <nav class="mt-6">
+        <div class="px-4 mb-4">
+          <p
+            class="text-xs font-semibold text-gray-400 uppercase tracking-wider"
+          >
+            Main
+          </p>
+        </div>
+
+        <a
+          href="dashboard.html"
+          class="sidebar-link active flex items-center px-6 py-3"
+        >
+          <i class="fas fa-home w-5 mr-3"></i>
+          Dashboard
+        </a>
+
+        <a href="courses.html" class="sidebar-link flex items-center px-6 py-3">
+          <i class="fas fa-book-open w-5 mr-3"></i>
+          Courses
+        </a>
+
+        <a
+          href="assignments.html"
+          class="sidebar-link flex items-center px-6 py-3"
+        >
+          <i class="fas fa-tasks w-5 mr-3"></i>
+          Assignments
+        </a>
+
+        <a href="profile.html" class="sidebar-link flex items-center px-6 py-3">
+          <i class="fas fa-user w-5 mr-3"></i>
+          Profile
+        </a>
+
+        <div class="px-4 mt-8 mb-4">
+          <p
+            class="text-xs font-semibold text-gray-400 uppercase tracking-wider"
+          >
+            Learning
+          </p>
+        </div>
+
+        <a
+          href="schedule.html"
+          class="sidebar-link flex items-center px-6 py-3"
+        >
+          <i class="fas fa-calendar w-5 mr-3"></i>
+          Schedule
+        </a>
+
+        <a
+          href="progress.html"
+          class="sidebar-link flex items-center px-6 py-3"
+        >
+          <i class="fas fa-chart-line w-5 mr-3"></i>
+          Progress
+        </a>
+
+        <a
+          href="certificates.html"
+          class="sidebar-link flex items-center px-6 py-3"
+        >
+          <i class="fas fa-certificate w-5 mr-3"></i>
+          Certificates
+        </a>
+      </nav>
+
+      <!-- User Info at Bottom -->
+      <div
+        class="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-200"
+        style="bottom: -18px"
+      >
+        <div class="flex items-center">
+          <img
+            id="sidebar-user-avatar"
+            src="/placeholder.svg?height=40&width=40"
+            alt="User Avatar"
+            class="w-10 h-10 rounded-full"
+          />
+          <div class="ml-3 flex-1">
+            <p id="user-name" class="text-sm font-medium text-white"></p>
+            <p class="text-xs text-gray-400">Student</p>
+          </div>
+          <button
+            onclick="logout()"
+            class="text-gray-400 hover:text-red-500 transition-colors"
+          >
+            <i class="fas fa-sign-out-alt"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="md:ml-64 min-h-screen">
+      <!-- Top Bar -->
+      <header
+        class="shadow-sm p-1.4 border-b border-gray-200 sticky top-0 z-40"
+      >
+        <div class="flex items-center justify-between px-6 py-4">
+          <div class="flex items-center">
+            <button
+              onclick="toggleSidebar()"
+              class="md:hidden text-gray-500 hover:text-gray-700 mr-4"
+            >
+              <i class="fas fa-bars text-xl"></i>
+            </button>
+            <h1 class="font-heading text-2xl font-bold text-white">
+              Dashboard
+            </h1>
+          </div>
+
+          <div class="flex items-center space-x-4">
+            <!-- Search -->
+            <div class="relative hidden sm:block">
+              <input
+                type="text"
+                placeholder="Search courses, assignments..."
+                class="w-64 pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent bg-gray-800 text-white placeholder-gray-400"
+              />
+              <i
+                class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+              ></i>
+            </div>
+
+           <!-- Top Bar Notifications Button -->
+<button id="notification-btn" class="relative text-gray-500 hover:text-gray-700">
+  <i class="fas fa-bell text-xl"></i>
+  <span
+    class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center"
+    >3</span
+  >
+</button>
+<!-- Notifications Dropdown -->
+<div
+  id="notification-dropdown"
+  class="hidden absolute right-0 mt-2 w-80 bg-gray-800 rounded-lg shadow-lg border border-gray-700 py-2 z-50"
+  style="top: 60px; right: 40px;"
+>
+  <div class="px-4 py-2 border-b border-gray-700 font-semibold text-white">
+    Notifications
+  </div>
+  <ul class="max-h-80 overflow-y-auto">
+    <li class="px-4 py-3 flex items-start gap-3 hover:bg-gray-700 transition">
+      <div class="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-full bg-cyan-700/30">
+        <i class="fas fa-check-circle text-cyan-500"></i>
+      </div>
+      <div>
+        <span class="block text-white font-medium">React Assignment #3 due tomorrow</span>
+        <span class="block text-xs text-gray-400 mt-1">Coursework</span>
+      </div>
+    </li>
+    <li class="px-4 py-3 flex items-start gap-3 hover:bg-gray-700 transition">
+      <div class="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-full bg-orange-700/30">
+        <i class="fas fa-clock text-orange-400"></i>
+      </div>
+      <div>
+        <span class="block text-white font-medium">2 tasks due today</span>
+        <span class="block text-xs text-gray-400 mt-1">Reminder</span>
+      </div>
+    </li>
+    <li class="px-4 py-3 flex items-start gap-3 hover:bg-gray-700 transition">
+      <div class="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-full bg-purple-700/30">
+        <i class="fas fa-fire text-purple-400"></i>
+      </div>
+      <div>
+        <span class="block text-white font-medium">15-day study streak!</span>
+        <span class="block text-xs text-gray-400 mt-1">Milestone</span>
+      </div>
+    </li>
+
+  </ul>
+</div>
+  <!-- User Menu -->
+            <div class="relative">
+              <button
+                onclick="toggleUserMenu()"
+                class="flex items-center space-x-2 text-gray-700 hover:text-gray-900"
+              >
+                <img
+                  id="header-user-avatar"
+                  src="/placeholder.svg?height=32&width=32"
+                  alt="User"
+                  class="w-8 h-8 rounded-full"
+                />
+                <i class="fas fa-chevron-down text-sm"></i>
+              </button>
+
+              <div
+                id="user-menu"
+                class="hidden absolute right-0 mt-2 w-48 bg-gray-800 rounded-lg shadow-lg border border-gray-700 py-2"
+              >
+                <a
+                  href="profile.html"
+                  class="block px-4 py-2 text-sm text-white hover:bg-gray-700"
+                >
+                  <i class="fas fa-user mr-2"></i>Profile
+                </a>
+                <a
+                  href="#"
+                  class="block px-4 py-2 text-sm text-white hover:bg-gray-700"
+                >
+                  <i class="fas fa-cog mr-2"></i>Settings
+                </a>
+                <hr class="my-2 border-gray-700" />
+                <button
+                  onclick="logout()"
+                  class="block w-full text-left px-4 py-2 text-sm text-red-500 hover:bg-red-900"
+                >
+                  <i class="fas fa-sign-out-alt mr-2"></i>Logout
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Dashboard Content -->
+      <main class="p-6">
+        <!-- Welcome Section -->
+        <div class="mb-8">
+          <h2 class="font-heading text-3xl font-bold text-white mb-2">
+            Welcome back, <span id="welcome-name"></span>! 👋
+          </h2>
+          <p class="text-gray-400">
+            Here's what's happening with your learning journey today.
+          </p>
+        </div>
+
+        <!-- Stats Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+          <div class="widget-card rounded-xl shadow-sm p-6">
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="text-sm font-medium text-gray-400">
+                  Enrolled Courses
+                </p>
+                <p class="text-3xl font-bold text-white">12</p>
+              </div>
+              <div
+                class="w-12 h-12 bg-cyan-600 rounded-lg flex items-center justify-center"
+              >
+                <i class="fas fa-book-open text-white text-xl"></i>
+              </div>
+            </div>
+            <div class="mt-4 flex items-center text-sm">
+              <span class="text-emerald-500 font-medium">+2</span>
+              <span class="text-gray-400 ml-1">this month</span>
+            </div>
+          </div>
+
+          <div class="widget-card rounded-xl shadow-sm p-6">
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="text-sm font-medium text-gray-400">Completed</p>
+                <p class="text-3xl font-bold text-white">8</p>
+              </div>
+              <div
+                class="w-12 h-12 bg-emerald-500 rounded-lg flex items-center justify-center"
+              >
+                <i class="fas fa-check-circle text-white text-xl"></i>
+              </div>
+            </div>
+            <div class="mt-4 flex items-center text-sm">
+              <span class="text-emerald-500 font-medium">67%</span>
+              <span class="text-gray-400 ml-1">completion rate</span>
+            </div>
+          </div>
+
+          <div class="widget-card rounded-xl shadow-sm p-6">
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="text-sm font-medium text-gray-400">Pending Tasks</p>
+                <p class="text-3xl font-bold text-white">5</p>
+              </div>
+              <div
+                class="w-12 h-12 bg-orange-500 rounded-lg flex items-center justify-center"
+              >
+                <i class="fas fa-clock text-white text-xl"></i>
+              </div>
+            </div>
+            <div class="mt-4 flex items-center text-sm">
+              <span class="text-orange-400 font-medium">2</span>
+              <span class="text-gray-400 ml-1">due today</span>
+            </div>
+          </div>
+
+          <div class="widget-card rounded-xl shadow-sm p-6">
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="text-sm font-medium text-gray-400">Study Streak</p>
+                <p class="text-3xl font-bold text-white">15</p>
+              </div>
+              <div
+                class="w-12 h-12 bg-purple-500 rounded-lg flex items-center justify-center"
+              >
+                <i class="fas fa-fire text-white text-xl"></i>
+              </div>
+            </div>
+            <div class="mt-4 flex items-center text-sm">
+              <span class="text-purple-400 font-medium">days</span>
+              <span class="text-gray-400 ml-1">keep it up!</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Main Dashboard Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <!-- Recent Courses -->
+          <div class="lg:col-span-2">
+            <div class="widget-card rounded-xl shadow-sm p-6">
+              <div
+                class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 gap-2"
+              >
+                <h3 class="font-heading text-xl font-semibold text-white">
+                  Continue Learning
+                </h3>
+                <a
+                  href="courses.html"
+                  class="text-cyan-600 hover:text-cyan-400 font-medium text-sm"
+                  >View All</a
+                >
+              </div>
+              <div class="flex flex-col gap-4" id="recent-courses">
+                <!-- Course items will be loaded here -->
+                <div
+                  class="flex flex-col sm:flex-row items-center p-4 border border-gray-700 rounded-lg hover:bg-gray-800 transition-colors w-full"
+                >
+                  <img
+                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg"
+                    class="w-16 h-16 min-w-16 min-h-16 rounded-lg object-contain bg-white"
+                  />
+                  <div
+                    class="sm:ml-4 mt-4 sm:mt-0 flex-1 flex flex-col justify-center min-h-16 w-full"
+                  >
+                    <div
+                      class="flex flex-col sm:flex-row sm:items-center w-full"
+                    >
+                      <h4
+                        class="font-medium text-white text-lg truncate w-full sm:w-auto"
+                        style="max-width: 220px"
+                      >
+                        JavaScript Fundamentals
+                      </h4>
+                      <span class="hidden sm:inline mx-3 text-gray-600">|</span>
+                      <p
+                        class="text-sm text-gray-400 font-medium truncate w-full sm:w-auto"
+                        style="max-width: 140px"
+                      >
+                        by Mosh Hamed
+                      </p>
+                    </div>
+                    <p class="text-sm text-cyan-600 mt-1">
+                      Next: Arrays and Objects
+                    </p>
+                    <div class="mt-2">
+                      <div class="flex items-center justify-between text-sm">
+                        <span class="text-gray-400">Progress</span>
+                        <span class="font-medium">75%</span>
+                      </div>
+                      <div class="w-full bg-gray-700 rounded-full h-2 mt-1">
+                        <div
+                          class="bg-cyan-600 h-2 rounded-full"
+                          style="width: 75%"
+                        ></div>
+                      </div>
+                    </div>
+                  </div>
+                  <button
+                    class="sm:ml-4 mt-4 sm:mt-0 text-cyan-600 hover:text-cyan-400"
+                  >
+                    <i class="fas fa-play-circle text-2xl"></i>
+                  </button>
+                </div>
+
+                <div
+                  class="flex flex-col sm:flex-row items-center p-4 border border-gray-700 rounded-lg hover:bg-gray-800 transition-colors w-full"
+                >
+                  <img
+                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg"
+                    class="w-16 h-16 min-w-16 min-h-16 rounded-lg object-contain bg-white"
+                  />
+                  <div
+                    class="sm:ml-4 mt-4 sm:mt-0 flex-1 flex flex-col justify-center min-h-16 w-full"
+                  >
+                    <div
+                      class="flex flex-col sm:flex-row sm:items-center w-full"
+                    >
+                      <h4
+                        class="font-medium text-white text-lg truncate w-full sm:w-auto"
+                        style="max-width: 220px"
+                      >
+                        React Development
+                      </h4>
+                      <span class="hidden sm:inline mx-3 text-gray-600">|</span>
+                      <p
+                        class="text-sm text-gray-400 font-medium truncate w-full sm:w-auto"
+                        style="max-width: 140px"
+                      >
+                        by Mosh Hamed
+                      </p>
+                    </div>
+                    <p class="text-sm text-cyan-600 mt-1">
+                      Next: State Management
+                    </p>
+                    <div class="mt-2">
+                      <div class="flex items-center justify-between text-sm">
+                        <span class="text-gray-400">Progress</span>
+                        <span class="font-medium">45%</span>
+                      </div>
+                      <div class="w-full bg-gray-700 rounded-full h-2 mt-1">
+                        <div
+                          class="bg-cyan-600 h-2 rounded-full"
+                          style="width: 45%"
+                        ></div>
+                      </div>
+                    </div>
+                  </div>
+                  <button
+                    class="sm:ml-4 mt-4 sm:mt-0 text-cyan-600 hover:text-cyan-400"
+                  >
+                    <i class="fas fa-play-circle text-2xl"></i>
+                  </button>
+                </div>
+
+                <div
+                  class="flex flex-col sm:flex-row items-center p-4 border border-gray-700 rounded-lg hover:bg-gray-800 transition-colors w-full"
+                >
+                  <img
+                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg"
+                    class="w-16 h-16 min-w-16 min-h-16 rounded-lg object-contain bg-white"
+                  />
+                  <div
+                    class="sm:ml-4 mt-4 sm:mt-0 flex-1 flex flex-col justify-center min-h-16 w-full"
+                  >
+                    <div
+                      class="flex flex-col sm:flex-row sm:items-center w-full"
+                    >
+                      <h4
+                        class="font-medium text-white text-lg truncate w-full sm:w-auto"
+                        style="max-width: 220px"
+                      >
+                        Python for Beginners
+                      </h4>
+                      <span class="hidden sm:inline mx-3 text-gray-600">|</span>
+                      <p
+                        class="text-sm text-gray-400 font-medium truncate w-full sm:w-auto"
+                        style="max-width: 140px"
+                      >
+                        by Mosh Hamed
+                      </p>
+                    </div>
+                    <p class="text-sm text-cyan-600 mt-1">
+                      Next: Final Project
+                    </p>
+                    <div class="mt-2">
+                      <div class="flex items-center justify-between text-sm">
+                        <span class="text-gray-400">Progress</span>
+                        <span class="font-medium">90%</span>
+                      </div>
+                      <div class="w-full bg-gray-700 rounded-full h-2 mt-1">
+                        <div
+                          class="bg-cyan-600 h-2 rounded-full"
+                          style="width: 90%"
+                        ></div>
+                      </div>
+                    </div>
+                  </div>
+                  <button
+                    class="sm:ml-4 mt-4 sm:mt-0 text-cyan-600 hover:text-cyan-400"
+                  >
+                    <i class="fas fa-play-circle text-2xl"></i>
+                  </button>
+                </div>
+
+                <div
+                  class="flex flex-col sm:flex-row items-center p-4 border border-gray-700 rounded-lg hover:bg-gray-800 transition-colors w-full"
+                >
+                  <img
+                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/rstudio/rstudio-original.svg"
+                    class="w-16 h-16 min-w-16 min-h-16 rounded-lg object-contain bg-white"
+                  />
+                  <div
+                    class="sm:ml-4 mt-4 sm:mt-0 flex-1 flex flex-col justify-center min-h-16 w-full"
+                  >
+                    <div
+                      class="flex flex-col sm:flex-row sm:items-center w-full"
+                    >
+                      <h4
+                        class="font-medium text-white text-lg truncate w-full sm:w-auto"
+                        style="max-width: 220px"
+                      >
+                        Data Science Basics
+                      </h4>
+                      <span class="hidden sm:inline mx-3 text-gray-600">|</span>
+                      <p
+                        class="text-sm text-gray-400 font-medium truncate w-full sm:w-auto"
+                        style="max-width: 140px"
+                      >
+                        by Free CodeCamp
+                      </p>
+                    </div>
+                    <p class="text-sm text-cyan-600 mt-1">
+                      Next: Data Visualization
+                    </p>
+                    <div class="mt-2">
+                      <div class="flex items-center justify-between text-sm">
+                        <span class="text-gray-400">Progress</span>
+                        <span class="font-medium">60%</span>
+                      </div>
+                      <div class="w-full bg-gray-700 rounded-full h-2 mt-1">
+                        <div
+                          class="bg-cyan-600 h-2 rounded-full"
+                          style="width: 60%"
+                        ></div>
+                      </div>
+                    </div>
+                  </div>
+                  <button
+                    class="sm:ml-4 mt-4 sm:mt-0 text-cyan-600 hover:text-cyan-400"
+                  >
+                    <i class="fas fa-play-circle text-2xl"></i>
+                  </button>
+                </div>
+
+                <div
+                  class="flex flex-col sm:flex-row items-center p-4 border border-gray-700 rounded-lg hover:bg-gray-800 transition-colors w-full"
+                >
+                  <img
+                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/django/django-plain.svg"
+                    class="w-16 h-16 min-w-16 min-h-16 rounded-lg object-contain bg-white"
+                  />
+                  <div
+                    class="sm:ml-4 mt-4 sm:mt-0 flex-1 flex flex-col justify-center min-h-16 w-full"
+                  >
+                    <div
+                      class="flex flex-col sm:flex-row sm:items-center w-full"
+                    >
+                      <h4
+                        class="font-medium text-white text-lg truncate w-full sm:w-auto"
+                        style="max-width: 220px"
+                      >
+                        Web Development with Django
+                      </h4>
+                      <span class="hidden sm:inline mx-3 text-gray-600">|</span>
+                      <p
+                        class="text-sm text-gray-400 font-medium truncate w-full sm:w-auto"
+                        style="max-width: 140px"
+                      >
+                        by Free CodeCamp
+                      </p>
+                    </div>
+                    <p class="text-sm text-cyan-600 mt-1">
+                      Next: Models and Migrations
+                    </p>
+                    <div class="mt-2">
+                      <div class="flex items-center justify-between text-sm">
+                        <span class="text-gray-400">Progress</span>
+                        <span class="font-medium">30%</span>
+                      </div>
+                      <div class="w-full bg-gray-700 rounded-full h-2 mt-1">
+                        <div
+                          class="bg-cyan-600 h-2 rounded-full"
+                          style="width: 30%"
+                        ></div>
+                      </div>
+                    </div>
+                  </div>
+                 <a 
+  href="http://youtube.com" 
+  class="sm:ml-4 mt-4 sm:mt-0 text-cyan-600 hover:text-cyan-400"
+>
+  <i class="fas fa-play-circle text-2xl"></i>
+</a>
+
+                </div>
+
+                <div
+                  class="flex flex-col sm:flex-row items-center p-4 border border-gray-700 rounded-lg hover:bg-gray-800 transition-colors w-full"
+                >
+                  <img
+                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg"
+                    class="w-16 h-16 min-w-16 min-h-16 rounded-lg object-contain bg-white"
+                  />
+                  <div
+                    class="sm:ml-4 mt-4 sm:mt-0 flex-1 flex flex-col justify-center min-h-16 w-full"
+                  >
+                    <div
+                      class="flex flex-col sm:flex-row sm:items-center w-full"
+                    >
+                      <h4
+                        class="font-medium text-white text-lg truncate w-full sm:w-auto"
+                        style="max-width: 220px"
+                      >
+                        Machine Learning 101
+                      </h4>
+                      <span class="hidden sm:inline mx-3 text-gray-600">|</span>
+                      <p
+                        class="text-sm text-gray-400 font-medium truncate w-full sm:w-auto"
+                        style="max-width: 140px"
+                      >
+                        by Free CodeCamp
+                      </p>
+                    </div>
+                    <p class="text-sm text-cyan-600 mt-1">
+                      Next: Supervised Learning
+                    </p>
+                    <div class="mt-2">
+                      <div class="flex items-center justify-between text-sm">
+                        <span class="text-gray-400">Progress</span>
+                        <span class="font-medium">20%</span>
+                      </div>
+                      <div class="w-full bg-gray-700 rounded-full h-2 mt-1">
+                        <div
+                          class="bg-cyan-600 h-2 rounded-full"
+                          style="width: 20%"
+                        ></div>
+                      </div>
+                    </div>
+                  </div>
+                  <button
+                    class="sm:ml-4 mt-4 sm:mt-0 text-cyan-600 hover:text-cyan-400"
+                  >
+                    <i class="fas fa-play-circle text-2xl"></i>
+                  </button>
+                </div>
+
+                <div
+                  class="flex flex-col sm:flex-row items-center p-4 border border-gray-700 rounded-lg hover:bg-gray-800 transition-colors w-full"
+                >
+                  <img
+                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg"
+                    class="w-16 h-16 min-w-16 min-h-16 rounded-lg object-contain bg-white"
+                  />
+                  <div
+                    class="sm:ml-4 mt-4 sm:mt-0 flex-1 flex flex-col justify-center min-h-16 w-full"
+                  >
+                    <div
+                      class="flex flex-col sm:flex-row sm:items-center w-full"
+                    >
+                      <h4
+                        class="font-medium text-white text-lg truncate w-full sm:w-auto"
+                        style="max-width: 220px"
+                      >
+                        UI/UX Design Principles
+                      </h4>
+                      <span class="hidden sm:inline mx-3 text-gray-600">|</span>
+                      <p
+                        class="text-sm text-gray-400 font-medium truncate w-full sm:w-auto"
+                        style="max-width: 140px"
+                      >
+                        by Free CodeCamp
+                      </p>
+                    </div>
+                    <p class="text-sm text-cyan-600 mt-1">Next: Prototyping</p>
+                    <div class="mt-2">
+                      <div class="flex items-center justify-between text-sm">
+                        <span class="text-gray-400">Progress</span>
+                        <span class="font-medium">80%</span>
+                      </div>
+                      <div class="w-full bg-gray-700 rounded-full h-2 mt-1">
+                        <div
+                          class="bg-cyan-600 h-2 rounded-full"
+                          style="width: 80%"
+                        ></div>
+                      </div>
+                    </div>
+                  </div>
+                  <button
+                    class="sm:ml-4 mt-4 sm:mt-0 text-cyan-600 hover:text-cyan-400"
+                  >
+                    <i class="fas fa-play-circle text-2xl"></i>
+                  </button>
+                </div>
+
+                <div
+                  class="flex flex-col sm:flex-row items-center p-4 border border-gray-700 rounded-lg hover:bg-gray-800 transition-colors w-full"
+                >
+                  <img
+                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/googlecloud/googlecloud-original.svg"
+                    class="w-16 h-16 min-w-16 min-h-16 rounded-lg object-contain bg-white"
+                  />
+                  <div
+                    class="sm:ml-4 mt-4 sm:mt-0 flex-1 flex flex-col justify-center min-h-16 w-full"
+                  >
+                    <div
+                      class="flex flex-col sm:flex-row sm:items-center w-full"
+                    >
+                      <h4
+                        class="font-medium text-white text-lg truncate w-full sm:w-auto"
+                        style="max-width: 220px"
+                      >
+                        Cloud Computing Basics
+                      </h4>
+                      <span class="hidden sm:inline mx-3 text-gray-600">|</span>
+                      <p
+                        class="text-sm text-gray-400 font-medium truncate w-full sm:w-auto"
+                        style="max-width: 140px"
+                      >
+                        by edureka
+                      </p>
+                    </div>
+                    <p class="text-sm text-cyan-600 mt-1">
+                      Next: Cloud Fundamentals
+                    </p>
+                    <div class="mt-2">
+                      <div class="flex items-center justify-between text-sm">
+                        <span class="text-gray-400">Progress</span>
+                        <span class="font-medium">50%</span>
+                      </div>
+                      <div class="w-full bg-gray-700 rounded-full h-2 mt-1">
+                        <div
+                          class="bg-cyan-600 h-2 rounded-full"
+                          style="width: 50%"
+                        ></div>
+                      </div>
+                    </div>
+                  </div>
+                  <button
+                    class="sm:ml-4 mt-4 sm:mt-0 text-cyan-600 hover:text-cyan-400"
+                  >
+                    <i class="fas fa-play-circle text-2xl"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Progress Overview -->
+          <div class="space-y-6">
+            <!-- Overall Progress -->
+            <div class="widget-card rounded-xl shadow-sm p-6">
+              <h3 class="font-heading text-lg font-semibold text-white mb-4">
+                Overall Progress
+              </h3>
+              <div class="flex items-center justify-center mb-4">
+                <div class="relative w-24 h-24">
+                  <svg class="progress-ring w-24 h-24">
+                    <circle
+                      cx="48"
+                      cy="48"
+                      r="40"
+                      stroke="#222"
+                      stroke-width="8"
+                      fill="transparent"
+                    ></circle>
+                    <circle
+                      cx="48"
+                      cy="48"
+                      r="40"
+                      stroke="#0891b2"
+                      stroke-width="8"
+                      fill="transparent"
+                      stroke-dasharray="251.2"
+                      stroke-dashoffset="75.36"
+                      class="progress-ring-circle"
+                    ></circle>
+                  </svg>
+                  <div
+                    class="absolute inset-0 flex items-center justify-center"
+                  >
+                    <span class="text-2xl font-bold text-white">70%</span>
+                  </div>
+                </div>
+              </div>
+              <p class="text-center text-gray-400">
+                Great progress! Keep going.
+              </p>
+            </div>
+
+            <!-- Upcoming Deadlines -->
+            <div class="widget-card rounded-xl shadow-sm p-6">
+              <h3 class="font-heading text-lg font-semibold text-white mb-4">
+                Upcoming Deadlines
+              </h3>
+              <div class="space-y-3" id="upcoming-deadlines">
+                <!-- Deadline items will be loaded here -->
+              </div>
+              <a
+                href="assignments.html"
+                class="block text-center text-cyan-600 hover:text-cyan-400 font-medium text-sm mt-4"
+              >
+                View All Assignments
+              </a>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+  
+    <div id="toast-container" class="toast-container fixed"></div>
+<script src="JS/dashboard.js"></script>
+    
+  </body>
+</html>

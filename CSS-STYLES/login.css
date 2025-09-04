@@ -1,0 +1,29 @@
+  @import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=DM+Sans:wght@400;500;600&display=swap");
+
+      :root {
+        --primary: #0891b2;
+        --secondary: #10b981;
+        --dark-gray: #4b5563;
+        --light-gray: #f9fafb;
+        --border: #e5e7eb;
+      }
+
+      .font-heading {
+        font-family: "Space Grotesk", sans-serif;
+      }
+      .font-body {
+        font-family: "DM Sans", sans-serif;
+      }
+
+      .auth-gradient {
+        background: linear-gradient(135deg, #0891b2 0%, #10b981 100%);
+      }
+
+      .form-input {
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .form-input:focus {
+        border-color: var(--primary);
+        box-shadow: 0 0 0 3px rgba(8, 145, 178, 0.1);
+      }

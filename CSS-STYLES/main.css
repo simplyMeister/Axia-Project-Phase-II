@@ -1,0 +1,234 @@
+ /* Base dark theme variables - ensure dark is default */
+      :root {
+        --dark-bg: #1a1a1a;
+        --dark-card: #2d2d2d;
+        --text-primary: #ffffff;
+        --text-secondary: #9ca3af;
+      }
+
+      /* Removed light theme variables that were causing white backgrounds */
+
+      body {
+        font-family: "Inter", sans-serif;
+        background-color: #1a1a1a !important; /* Force dark background */
+        color: #ffffff !important; /* Force white text */
+        transition: background-color 0.3s ease, color 0.3s ease;
+      }
+
+      /* Ensure html element also has dark background */
+      html {
+        background-color: #1a1a1a !important;
+      }
+
+      /* Custom cursor styles */
+      .custom-cursor {
+        position: fixed;
+        width: 20px;
+        height: 20px;
+        background: var(--primary);
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 9999;
+        transition: transform 0.1s ease;
+        mix-blend-mode: difference;
+      }
+
+      .custom-cursor-follower {
+        position: fixed;
+        width: 40px;
+        height: 40px;
+        border: 2px solid var(--primary);
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 9998;
+        transition: transform 0.2s ease;
+        opacity: 0.5;
+      }
+
+      /* Special hover effect for RCEET TECHNOLOGIES text */
+      .hero-title {
+        position: relative;
+        display: inline-block;
+        transition: all 0.3s ease;
+      }
+
+      .hero-title:hover {
+        transform: scale(1.05);
+        text-shadow: 0 0 30px var(--primary), 0 0 60px var(--primary);
+        animation: glow-pulse 2s infinite;
+      }
+
+      @keyframes glow-pulse {
+        0%,
+        100% {
+          text-shadow: 0 0 30px var(--primary), 0 0 60px var(--primary);
+        }
+        50% {
+          text-shadow: 0 0 40px var(--primary), 0 0 80px var(--primary),
+            0 0 120px var(--primary);
+        }
+      }
+
+      /* Toast notification styles */
+      .toast-container {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 10000;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .toast {
+        background: var(--dark-card);
+        border: 1px solid var(--primary);
+        color: var(--text-primary);
+        padding: 16px 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        transform: translateX(400px);
+        opacity: 0;
+        transition: all 0.3s ease;
+        max-width: 300px;
+      }
+
+      .toast.show {
+        transform: translateX(0);
+        opacity: 1;
+      }
+
+      .toast.success {
+        border-color: #10b981;
+      }
+
+      .toast.error {
+        border-color: #ef4444;
+      }
+
+      .toast.info {
+        border-color: #3b82f6;
+      }
+
+      /* Theme toggle button styles */
+      .theme-toggle {
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        z-index: 1000;
+        background: var(--dark-card);
+        border: 1px solid var(--primary);
+        color: var(--text-primary);
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .theme-toggle:hover {
+        transform: scale(1.1);
+        box-shadow: 0 0 20px var(--primary);
+      }
+
+      .hero-illustration {
+        background: linear-gradient(135deg, #2a2a2a 0%, #3a3a3a 100%);
+        border-radius: 20px;
+        padding: 2rem;
+      }
+
+      .nav-link {
+        position: relative;
+        transition: color 0.3s ease;
+      }
+
+      .nav-link:hover {
+        color: var(--primary);
+      }
+
+      .btn-primary {
+        background-color: var(--primary);
+        transition: all 0.3s ease;
+      }
+
+      .btn-primary:hover {
+        background-color: #059669;
+        transform: translateY(-1px);
+      }
+
+      .btn-secondary {
+        border: 1px solid var(--text-secondary);
+        color: var(--text-secondary);
+        transition: all 0.3s ease;
+      }
+
+      .btn-secondary:hover {
+        border-color: var(--primary);
+        color: var(--primary);
+      }
+
+      .modal-backdrop {
+        backdrop-filter: blur(8px);
+      }
+
+      /* Updated bottom navigation to always use dark background */
+      .bottom-nav {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: #1a1a1a !important; /* Solid dark background instead of rgba */
+        backdrop-filter: blur(10px);
+        border-top: 1px solid #333;
+        z-index: 30;
+      }
+
+      /* Added centering for bottom nav on large screens */
+      @media (min-width: 1200px) {
+        .bottom-nav .nav-links {
+          justify-content: center;
+          flex: 1;
+        }
+
+        .bottom-nav .auth-buttons {
+          position: absolute;
+          right: 2rem;
+        }
+      }
+
+      /* Added responsive styles for bottom navigation */
+      @media (max-width: 768px) {
+        .bottom-nav .nav-links {
+          display: none;
+        }
+
+        .bottom-nav .mobile-nav {
+          display: flex;
+          justify-content: space-around;
+          width: 100%;
+        }
+
+        .bottom-nav .auth-buttons {
+          position: static;
+          margin-left: auto;
+        }
+      }
+
+      @media (min-width: 769px) {
+        .bottom-nav .mobile-nav {
+          display: none;
+        }
+      }
+
+      @media (max-width: 1024px) {
+        .bottom-nav .nav-links {
+          space-x: 4;
+        }
+
+        .bottom-nav .nav-links a {
+          font-size: 0.75rem;
+        }
+      }

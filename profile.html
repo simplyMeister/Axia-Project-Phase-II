@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="favicon-32x32.png" type="image/x-icon">
+    <title>Profile - EduConnect</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="CSS-STYLES/profile.css">
+       
+</head>
+<body class="font-body bg-gray-50">
+    <!-- Mobile Sidebar Overlay -->
+    <div id="sidebar-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden md:hidden" onclick="toggleSidebar()"></div>
+    
+    <!-- Sidebar -->
+    <div id="sidebar" class="sidebar fixed left-0 top-0 h-full w-64 bg-white shadow-lg z-50 md:translate-x-0">
+        <div class="p-6 border-b border-gray-200">
+            <h1 class="font-heading text-xl font-bold text-gray-900">
+                <i class="fas fa-graduation-cap text-cyan-600 mr-2"></i>
+                EduConnect
+            </h1>
+        </div>
+        
+        <nav class="mt-6">
+            <div class="px-4 mb-4">
+                <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Main</p>
+            </div>
+            
+            <a href="dashboard.html" class="sidebar-link flex items-center px-6 py-3 text-gray-700">
+                <i class="fas fa-home w-5 mr-3"></i>
+                Dashboard
+            </a>
+            
+            <a href="courses.html" class="sidebar-link flex items-center px-6 py-3 text-gray-700">
+                <i class="fas fa-book-open w-5 mr-3"></i>
+                Courses
+            </a>
+            
+            <a href="assignments.html" class="sidebar-link flex items-center px-6 py-3 text-gray-700">
+                <i class="fas fa-tasks w-5 mr-3"></i>
+                Assignments
+            </a>
+            
+            <a href="profile.html" class="sidebar-link active flex items-center px-6 py-3 text-gray-700">
+                <i class="fas fa-user w-5 mr-3"></i>
+                Profile
+            </a>
+            
+            <div class="px-4 mt-8 mb-4">
+                <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Learning</p>
+            </div>
+            
+            <a href="schedule.html" class="sidebar-link flex items-center px-6 py-3 text-gray-700">
+                <i class="fas fa-calendar w-5 mr-3"></i>
+                Schedule
+            </a>
+            
+            <a href="progress.html" class="sidebar-link flex items-center px-6 py-3 text-gray-700">
+                <i class="fas fa-chart-line w-5 mr-3"></i>
+                Progress
+            </a>
+            
+            <a href="certificates.html" class="sidebar-link flex items-center px-6 py-3 text-gray-700">
+                <i class="fas fa-certificate w-5 mr-3"></i>
+                Certificates
+            </a>
+            
+           
+        </nav>
+        
+        <!-- User Info at Bottom -->
+        <div class="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-200" style="bottom: -19px;"
+        >
+
+            <div class="flex items-center">
+                <img id="sidebar-user-avatar" src="/placeholder.svg?height=40&width=40" alt="User Avatar" class="w-10 h-10 rounded-full">
+                <div class="ml-3 flex-1">
+                    <p id="sidebar-user-name" class="text-sm font-medium text-gray-900"></p>
+                    <p class="text-xs text-gray-500">Student</p>
+                </div>
+                <button onclick="logout()" class="text-gray-400 hover:text-red-500 transition-colors">
+                    <i class="fas fa-sign-out-alt"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="md:ml-64 pb-24">
+        <!-- Top Bar -->
+        <header class="bg-white shadow-sm p-1.5 border-b border-gray-200 sticky top-0 z-30">
+            <div class="flex items-center justify-between px-6 py-4">
+                <div class="flex items-center">
+                    <button onclick="toggleSidebar()" class="md:hidden text-gray-500 hover:text-gray-700 mr-4">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                    <h1 class="font-heading text-2xl font-bold text-gray-900">Profile</h1>
+                </div>
+                
+                <div class="flex items-center space-x-4">
+                    <!-- Top Bar Notifications Button -->
+<button id="notification-btn" class="relative text-gray-500 hover:text-gray-700">
+  <i class="fas fa-bell text-xl"></i>
+  <span
+    class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center"
+    >3</span
+  >
+</button>
+<!-- Notifications Dropdown -->
+<div
+  id="notification-dropdown"
+  class="hidden absolute right-0 mt-2 w-80 bg-gray-800 rounded-lg shadow-lg border border-gray-700 py-2 z-50"
+  style="top: 60px; right: 40px;"
+>
+  <div class="px-4 py-2 border-b border-gray-700 font-semibold text-white">
+    Notifications
+  </div>
+  <ul class="max-h-80 overflow-y-auto">
+    <li class="px-4 py-3 flex items-start gap-3 hover:bg-gray-700 transition">
+      <div class="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-full bg-cyan-700/30">
+        <i class="fas fa-check-circle text-cyan-500"></i>
+      </div>
+      <div>
+        <span class="block text-white font-medium">React Assignment #3 due tomorrow</span>
+        <span class="block text-xs text-gray-400 mt-1">Coursework</span>
+      </div>
+    </li>
+    <li class="px-4 py-3 flex items-start gap-3 hover:bg-gray-700 transition">
+      <div class="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-full bg-orange-700/30">
+        <i class="fas fa-clock text-orange-400"></i>
+      </div>
+      <div>
+        <span class="block text-white font-medium">2 tasks due today</span>
+        <span class="block text-xs text-gray-400 mt-1">Reminder</span>
+      </div>
+    </li>
+    <li class="px-4 py-3 flex items-start gap-3 hover:bg-gray-700 transition">
+      <div class="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-full bg-purple-700/30">
+        <i class="fas fa-fire text-purple-400"></i>
+      </div>
+      <div>
+        <span class="block text-white font-medium">15-day study streak!</span>
+        <span class="block text-xs text-gray-400 mt-1">Milestone</span>
+      </div>
+    </li>
+    
+  </ul>
+</div>
+
+                    
+                    <!-- User Menu -->
+                    <div class="relative">
+                        <button onclick="toggleUserMenu()" class="flex items-center space-x-2 text-gray-700 hover:text-gray-900">
+                            <img id="header-user-avatar" src="/placeholder.svg?height=32&width=32" alt="User" class="w-8 h-8 rounded-full">
+                            <i class="fas fa-chevron-down text-sm"></i>
+                        </button>
+                        
+                        <div id="user-menu" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-2">
+                            <a href="profile.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
+                                <i class="fas fa-user mr-2"></i>Profile
+                            </a>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
+                                <i class="fas fa-cog mr-2"></i>Settings
+                            </a>
+                            <hr class="my-2">
+                            <button onclick="logout()" class="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50">
+                                <i class="fas fa-sign-out-alt mr-2"></i>Logout
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        
+        <!-- Profile Content -->
+        <main class="p-6">
+            <!-- Loading State -->
+            <div id="loading-state" class="space-y-6">
+                <div class="loading-skeleton bg-white rounded-xl shadow-sm p-6">
+                    <div class="flex items-center space-x-4 mb-6">
+                        <div class="w-24 h-24 bg-gray-200 rounded-full"></div>
+                        <div class="flex-1">
+                            <div class="h-6 bg-gray-200 rounded w-1/3 mb-2"></div>
+                            <div class="h-4 bg-gray-200 rounded w-1/2"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Profile Header -->
+            <div id="profile-content" class="hidden">
+                <div class="bg-white rounded-xl shadow-sm p-6 mb-6">
+                    <div class="flex flex-col md:flex-row items-start md:items-center space-y-4 md:space-y-0 md:space-x-6">
+                        <div class="relative">
+                            <img id="profile-avatar" src="/placeholder.svg?height=96&width=96" alt="Profile Picture" class="w-24 h-24 rounded-full object-cover">
+                            <button onclick="changeProfilePicture()" class="absolute bottom-0 right-0 bg-cyan-600 hover:bg-cyan-700 text-white rounded-full w-8 h-8 flex items-center justify-center transition-colors">
+                                <i class="fas fa-camera text-sm"></i>
+                            </button>
+                        </div>
+                        
+                        <div class="flex-1">
+                            <h2 id="profile-name" class="font-heading text-2xl font-bold text-gray-900 mb-1">John Doe</h2>
+                            <p id="profile-email" class="text-gray-600 mb-2">john.doe@example.com</p>
+                            <div class="flex items-center text-sm text-gray-500">
+                                <i class="fas fa-calendar mr-2"></i>
+                                <span>Joined <span id="join-date">January 2024</span></span>
+                            </div>
+                        </div>
+                        
+                        <div class="flex space-x-3">
+                            <button onclick="editProfile()" class="bg-cyan-600 hover:bg-cyan-700 text-white px-4 py-2 rounded-lg font-medium transition-colors">
+                                <i class="fas fa-edit mr-2"></i>
+                                Edit Profile
+                            </button>
+                            <button onclick="generateNewProfile()" class="bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2 rounded-lg font-medium transition-colors">
+                                <i class="fas fa-refresh mr-2"></i>
+                                Generate New
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tabs -->
+                <div class="bg-white rounded-xl shadow-sm mb-6">
+                    <div class="border-b border-gray-200">
+                        <nav class="flex space-x-8 px-6">
+                            <button onclick="switchTab('overview')" class="tab-button active py-4 px-2 border-b-2 border-transparent font-medium text-sm">
+                                Overview
+                            </button>
+                            <button onclick="switchTab('personal')" class="tab-button py-4 px-2 border-b-2 border-transparent font-medium text-sm text-gray-500">
+                                Personal Info
+                            </button>
+                            <button onclick="switchTab('learning')" class="tab-button py-4 px-2 border-b-2 border-transparent font-medium text-sm text-gray-500">
+                                Learning Stats
+                            </button>
+                            <button onclick="switchTab('settings')" class="tab-button py-4 px-2 border-b-2 border-transparent font-medium text-sm text-gray-500">
+                                Account Settings
+                            </button>
+                        </nav>
+                    </div>
+                    
+                    <!-- Tab Content -->
+                    <div class="p-6">
+                        <!-- Overview Tab -->
+                        <div id="overview-tab" class="tab-content">
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                <div class="profile-card bg-gradient-to-r from-cyan-500 to-blue-600 text-white p-6 rounded-xl">
+                                    <div class="flex items-center justify-between mb-4">
+                                        <h3 class="font-semibold">Courses Enrolled</h3>
+                                        <i class="fas fa-book-open text-2xl opacity-80"></i>
+                                    </div>
+                                    <p class="text-3xl font-bold mb-2">12</p>
+                                    <p class="text-sm opacity-80">+2 this month</p>
+                                </div>
+                                
+                                <div class="profile-card bg-gradient-to-r from-emerald-500 to-green-600 text-white p-6 rounded-xl">
+                                    <div class="flex items-center justify-between mb-4">
+                                        <h3 class="font-semibold">Completed</h3>
+                                        <i class="fas fa-check-circle text-2xl opacity-80"></i>
+                                    </div>
+                                    <p class="text-3xl font-bold mb-2">8</p>
+                                    <p class="text-sm opacity-80">67% completion rate</p>
+                                </div>
+                                
+                                <div class="profile-card bg-gradient-to-r from-purple-500 to-pink-600 text-white p-6 rounded-xl">
+                                    <div class="flex items-center justify-between mb-4">
+                                        <h3 class="font-semibold">Certificates</h3>
+                                        <i class="fas fa-certificate text-2xl opacity-80"></i>
+                                    </div>
+                                    <p class="text-3xl font-bold mb-2">5</p>
+                                    <p class="text-sm opacity-80">Latest: React Dev</p>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-6">
+                                <div class="bg-gray-50 rounded-xl p-6">
+                                    <h3 class="font-heading text-lg font-semibold text-gray-900 mb-4">Recent Activity</h3>
+                                    <div class="space-y-3">
+                                        <div class="flex items-center space-x-3">
+                                            <div class="w-8 h-8 bg-emerald-100 rounded-full flex items-center justify-center">
+                                                <i class="fas fa-check text-emerald-600 text-sm"></i>
+                                            </div>
+                                            <div>
+                                                <p class="text-sm font-medium text-gray-900">Completed React Assignment #3</p>
+                                                <p class="text-xs text-gray-500">2 hours ago</p>
+                                            </div>
+                                        </div>
+                                        <div class="flex items-center space-x-3">
+                                            <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                                                <i class="fas fa-book text-blue-600 text-sm"></i>
+                                            </div>
+                                            <div>
+                                                <p class="text-sm font-medium text-gray-900">Started Python for Beginners</p>
+                                                <p class="text-xs text-gray-500">1 day ago</p>
+                                            </div>
+                                        </div>
+                                        <div class="flex items-center space-x-3">
+                                            <div class="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center">
+                                                <i class="fas fa-certificate text-purple-600 text-sm"></i>
+                                            </div>
+                                            <div>
+                                                <p class="text-sm font-medium text-gray-900">Earned JavaScript Certificate</p>
+                                                <p class="text-xs text-gray-500">3 days ago</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="bg-gray-50 rounded-xl p-6">
+                                    <h3 class="font-heading text-lg font-semibold text-gray-900 mb-4">Learning Progress</h3>
+                                    <div class="space-y-4">
+                                        <div>
+                                            <div class="flex justify-between text-sm mb-1">
+                                                <span class="font-medium text-gray-700">JavaScript Fundamentals</span>
+                                                <span class="text-gray-500">90%</span>
+                                            </div>
+                                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                                <div class="bg-cyan-600 h-2 rounded-full" style="width: 90%"></div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="flex justify-between text-sm mb-1">
+                                                <span class="font-medium text-gray-700">React Development</span>
+                                                <span class="text-gray-500">65%</span>
+                                            </div>
+                                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                                <div class="bg-emerald-500 h-2 rounded-full" style="width: 65%"></div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="flex justify-between text-sm mb-1">
+                                                <span class="font-medium text-gray-700">Python for Beginners</span>
+                                                <span class="text-gray-500">25%</span>
+                                            </div>
+                                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                                <div class="bg-purple-500 h-2 rounded-full" style="width: 25%"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Personal Info Tab -->
+                        <div id="personal-tab" class="tab-content hidden">
+                            <form id="personal-info-form" onsubmit="savePersonalInfo(event)">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">First Name</label>
+                                        <input type="text" id="first-name" class="form-input w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none" required>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Last Name</label>
+                                        <input type="text" id="last-name" class="form-input w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none" required>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                                        <input type="email" id="email" class="form-input w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none" required>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Phone</label>
+                                        <input type="tel" id="phone" class="form-input w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none">
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Date of Birth</label>
+                                        <input type="date" id="dob" class="form-input w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none">
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Gender</label>
+                                        <select id="gender" class="form-input w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none">
+                                            <option value="">Select Gender</option>
+                                            <option value="male">Male</option>
+                                            <option value="female">Female</option>
+                                            <option value="other">Other</option>
+                                        </select>
+                                    </div>
+                                    <div class="md:col-span-2">
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Address</label>
+                                        <textarea id="address" rows="3" class="form-input w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none"></textarea>
+                                    </div>
+                                    <div class="md:col-span-2">
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Bio</label>
+                                        <textarea id="bio" rows="4" class="form-input w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none" placeholder="Tell us about yourself..."></textarea>
+                                    </div>
+                                </div>
+                                
+                                <div class="mt-6 flex justify-end space-x-3">
+                                    <button type="button" onclick="cancelEdit()" class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors">
+                                        Cancel
+                                    </button>
+                                    <button type="submit" class="px-4 py-2 bg-cyan-600 hover:bg-cyan-700 text-white rounded-lg transition-colors">
+                                        Save Changes
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                        
+                        <!-- Learning Stats Tab -->
+                        <div id="learning-tab" class="tab-content hidden">
+                            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                                <div class="bg-gray-50 rounded-xl p-6">
+                                    <h3 class="font-heading text-lg font-semibold text-gray-900 mb-4">Study Time This Week</h3>
+                                    <div class="space-y-3">
+                                        <div class="flex justify-between items-center">
+                                            <span class="text-sm text-gray-600">Monday</span>
+                                            <div class="flex items-center space-x-2">
+                                                <div class="w-24 bg-gray-200 rounded-full h-2">
+                                                    <div class="bg-cyan-600 h-2 rounded-full" style="width: 80%"></div>
+                                                </div>
+                                                <span class="text-sm font-medium">2.4h</span>
+                                            </div>
+                                        </div>
+                                        <div class="flex justify-between items-center">
+                                            <span class="text-sm text-gray-600">Tuesday</span>
+                                            <div class="flex items-center space-x-2">
+                                                <div class="w-24 bg-gray-200 rounded-full h-2">
+                                                    <div class="bg-cyan-600 h-2 rounded-full" style="width: 60%"></div>
+                                                </div>
+                                                <span class="text-sm font-medium">1.8h</span>
+                                            </div>
+                                        </div>
+                                        <div class="flex justify-between items-center">
+                                            <span class="text-sm text-gray-600">Wednesday</span>
+                                            <div class="flex items-center space-x-2">
+                                                <div class="w-24 bg-gray-200 rounded-full h-2">
+                                                    <div class="bg-cyan-600 h-2 rounded-full" style="width: 100%"></div>
+                                                </div>
+                                                <span class="text-sm font-medium">3.0h</span>
+                                            </div>
+                                        </div>
+                                        <div class="flex justify-between items-center">
+                                            <span class="text-sm text-gray-600">Thursday</span>
+                                            <div class="flex items-center space-x-2">
+                                                <div class="w-24 bg-gray-200 rounded-full h-2">
+                                                    <div class="bg-cyan-600 h-2 rounded-full" style="width: 40%"></div>
+                                                </div>
+                                                <span class="text-sm font-medium">1.2h</span>
+                                            </div>
+                                        </div>
+                                        <div class="flex justify-between items-center">
+                                            <span class="text-sm text-gray-600">Friday</span>
+                                            <div class="flex items-center space-x-2">
+                                                <div class="w-24 bg-gray-200 rounded-full h-2">
+                                                    <div class="bg-cyan-600 h-2 rounded-full" style="width: 70%"></div>
+                                                </div>
+                                                <span class="text-sm font-medium">2.1h</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mt-4 pt-4 border-t border-gray-200">
+                                        <div class="flex justify-between items-center">
+                                            <span class="font-medium text-gray-900">Total This Week</span>
+                                            <span class="font-bold text-cyan-600">10.5h</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="bg-gray-50 rounded-xl p-6">
+                                    <h3 class="font-heading text-lg font-semibold text-gray-900 mb-4">Achievements</h3>
+                                    <div class="space-y-3">
+                                        <div class="flex items-center space-x-3 p-3 bg-white rounded-lg">
+                                            <div class="w-10 h-10 bg-yellow-100 rounded-full flex items-center justify-center">
+                                                <i class="fas fa-trophy text-yellow-600"></i>
+                                            </div>
+                                            <div>
+                                                <p class="font-medium text-gray-900">First Course Completed</p>
+                                                <p class="text-sm text-gray-500">Completed your first course</p>
+                                            </div>
+                                        </div>
+                                        <div class="flex items-center space-x-3 p-3 bg-white rounded-lg">
+                                            <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
+                                                <i class="fas fa-fire text-blue-600"></i>
+                                            </div>
+                                            <div>
+                                                <p class="font-medium text-gray-900">Study Streak</p>
+                                                <p class="text-sm text-gray-500">15 days in a row</p>
+                                            </div>
+                                        </div>
+                                        <div class="flex items-center space-x-3 p-3 bg-white rounded-lg">
+                                            <div class="w-10 h-10 bg-emerald-100 rounded-full flex items-center justify-center">
+                                                <i class="fas fa-star text-emerald-600"></i>
+                                            </div>
+                                            <div>
+                                                <p class="font-medium text-gray-900">Top Performer</p>
+                                                <p class="text-sm text-gray-500">Top 10% in JavaScript course</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Account Settings Tab -->
+                        <div id="settings-tab" class="tab-content hidden">
+                            <div class="space-y-6">
+                                <div class="bg-gray-50 rounded-xl p-6">
+                                    <h3 class="font-heading text-lg font-semibold text-gray-900 mb-4">Notifications</h3>
+                                    <div class="space-y-4">
+                                        <div class="flex items-center justify-between">
+                                            <div>
+                                                <p class="font-medium text-gray-900">Email Notifications</p>
+                                                <p class="text-sm text-gray-500">Receive email updates about your courses</p>
+                                            </div>
+                                            <label class="relative inline-flex items-center cursor-pointer">
+                                                <input type="checkbox" class="sr-only peer" checked>
+                                                <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-cyan-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-cyan-600"></div>
+                                            </label>
+                                        </div>
+                                        <div class="flex items-center justify-between">
+                                            <div>
+                                                <p class="font-medium text-gray-900">Push Notifications</p>
+                                                <p class="text-sm text-gray-500">Get notified about assignment deadlines</p>
+                                            </div>
+                                            <label class="relative inline-flex items-center cursor-pointer">
+                                                <input type="checkbox" class="sr-only peer" checked>
+                                                <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-cyan-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-cyan-600"></div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="bg-gray-50 rounded-xl p-6">
+                                    <h3 class="font-heading text-lg font-semibold text-gray-900 mb-4">Privacy</h3>
+                                    <div class="space-y-4">
+                                        <div class="flex items-center justify-between">
+                                            <div>
+                                                <p class="font-medium text-gray-900">Profile Visibility</p>
+                                                <p class="text-sm text-gray-500">Make your profile visible to other students</p>
+                                            </div>
+                                            <label class="relative inline-flex items-center cursor-pointer">
+                                                <input type="checkbox" class="sr-only peer">
+                                                <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-cyan-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-cyan-600"></div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="bg-red-50 border border-red-200 rounded-xl p-6">
+                                    <h3 class="font-heading text-lg font-semibold text-red-900 mb-4">Danger Zone</h3>
+                                    <div class="space-y-4">
+                                        <div>
+                                            <p class="font-medium text-red-900 mb-2">Delete Account</p>
+                                            <p class="text-sm text-red-700 mb-4">Once you delete your account, there is no going back. Please be certain.</p>
+                                            <button onclick="deleteAccount()" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg font-medium transition-colors">
+                                                Delete Account
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div id="toast-container" class="toast-container fixed"></div>
++    <script src="JS/profile.js"></script>
+       
+</body>
+</html>
