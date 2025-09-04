@@ -1,3 +1,7 @@
+import { inject } from "@vercel/analytics";
+
+inject(); // enables Vercel Analytics
+
 document.addEventListener("DOMContentLoaded", function () {
         const animationPlayer = document.getElementById("hero-animation");
         if (animationPlayer) {
