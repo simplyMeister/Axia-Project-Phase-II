@@ -70,7 +70,7 @@ document.addEventListener("DOMContentLoaded", function () {
           event.target.querySelector('input[type="password"]').value;
 
         showToast("Loading...", "info", 1200);
-        console.log("[v0] Attempting login with API key header");
+        console.log(" Attempting login with API key header");
 
         try {
           const response = await fetch("https://reqres.in/api/login", {
@@ -83,7 +83,7 @@ document.addEventListener("DOMContentLoaded", function () {
           });
 
           const data = await response.json();
-          console.log("[v0] Login response:", data);
+          console.log(" Login response:", data);
 
           if (response.ok) {
             localStorage.setItem("authToken", data.token);
@@ -99,7 +99,7 @@ document.addEventListener("DOMContentLoaded", function () {
             );
           }
         } catch (error) {
-          console.error("[v0] Login error:", error);
+          console.error(" Login error:", error);
           showToast("Login error: " + error.message, "error");
         }
       }
@@ -118,7 +118,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         showToast("Loading...", "info", 1200);
-        console.log("[v0] Attempting signup with API key header");
+        console.log(" Attempting signup with API key header");
 
         try {
           const response = await fetch("https://reqres.in/api/register", {
@@ -145,7 +145,7 @@ document.addEventListener("DOMContentLoaded", function () {
             );
           }
         } catch (error) {
-          console.error("[v0] Signup error:", error);
+          console.error(" Signup error:", error);
           showToast("Registration error: " + error.message, "error");
         }
       }
