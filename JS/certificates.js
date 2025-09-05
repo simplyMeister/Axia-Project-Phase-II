@@ -27,16 +27,16 @@
       }
 
       function logout() {
-        // Remove any previous confirmation toast
+       
         const container = document.getElementById("toast-container");
         if (!container) return;
 
-        // Remove any existing confirmation toasts
+       
         Array.from(container.children).forEach((child) => {
           if (child.classList.contains("toast-confirm")) child.remove();
         });
 
-        // Create confirmation toast
+       
         const toast = document.createElement("div");
         toast.className = "toast toast-confirm";
         toast.innerHTML = `
@@ -51,7 +51,7 @@
           toast.classList.add("show");
         }, 100);
 
-        // Button logic
+       
         toast.querySelector("#logout-yes").onclick = function () {
           toast.classList.remove("show");
           setTimeout(() => toast.remove(), 300);

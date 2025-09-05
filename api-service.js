@@ -43,7 +43,7 @@ class APIService {
   // Authentication APIs (ReqRes)
   async login(email, password) {
     try {
-      console.log("[v0] Making login request to ReqRes API")
+      console.log(" Making login request to ReqRes API")
       const response = await this.fetchData(`${this.baseURLs.reqres}/login`, {
         method: "POST",
         body: JSON.stringify({ email, password }),
@@ -55,7 +55,7 @@ class APIService {
 
       return response
     } catch (error) {
-      console.error("[v0] Login API error:", error)
+      console.error(" Login API error:", error)
       throw error
     }
   }
@@ -67,7 +67,7 @@ class APIService {
         body: JSON.stringify({ email, password }),
       })
     } catch (error) {
-      console.error("[v0] Register API error:", error)
+      console.error(" Register API error:", error)
       throw error
     }
   }

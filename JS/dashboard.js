@@ -198,7 +198,7 @@ const upcomingDeadlines = [
   
 ];
 
-// UI Functions
+
 function toggleSidebar() {
   const sidebar = document.getElementById("sidebar");
   const overlay = document.getElementById("sidebar-overlay");
@@ -212,7 +212,7 @@ function toggleUserMenu() {
   menu.classList.toggle("hidden");
 }
 
-// Toast notification system
+
 function showToast(message, type = "info", duration = 4000) {
   const container = document.getElementById("toast-container");
   if (!container) return;
@@ -230,16 +230,15 @@ function showToast(message, type = "info", duration = 4000) {
 }
 
 function logout() {
-  // Remove any previous confirmation toast
+  
   const container = document.getElementById("toast-container");
   if (!container) return;
 
-  // Remove any existing confirmation toasts
   Array.from(container.children).forEach((child) => {
     if (child.classList.contains("toast-confirm")) child.remove();
   });
 
-  // Create confirmation toast
+  // 
   const toast = document.createElement("div");
   toast.className = "toast toast-confirm";
   toast.innerHTML = `
@@ -254,7 +253,7 @@ function logout() {
     toast.classList.add("show");
   }, 100);
 
-  // Button logic
+  
   toast.querySelector("#logout-yes").onclick = function () {
     toast.classList.remove("show");
     setTimeout(() => toast.remove(), 300);
@@ -272,12 +271,12 @@ function logout() {
   };
 }
 
-// Load dashboard data
+
 
 function loadRecentCourses() {
   const container = document.getElementById("recent-courses");
 
-  // YouTube video URLs for each course
+  
   const courseVideos = {
     "JavaScript Fundamentals": "https://www.youtube.com/watch?v=W6NZfCO5SIk",
     "React Development": "https://www.youtube.com/watch?v=SqcY0GlETPk",
@@ -369,21 +368,21 @@ function loadUpcomingDeadlines() {
     .join("");
 }
 
-// Initialize dashboard
+
 function initDashboard() {
-  // Load user info
+ 
   const userName = localStorage.getItem("userName") || "Student";
   const userEmail = localStorage.getItem("userEmail") || "student@example.com";
 
   document.getElementById("welcome-name").textContent = userName.split(" ")[0];
   document.getElementById("user-name").textContent = userName;
 
-  // Load dashboard data
+
   loadRecentCourses();
   loadUpcomingDeadlines();
 }
 
-// Check authentication
+
 function checkAuth() {
   const token = localStorage.getItem("authToken");
   if (!token) {
@@ -393,7 +392,7 @@ function checkAuth() {
   return true;
 }
 
-// Close user menu when clicking outside
+
 document.addEventListener("click", function (event) {
   const userMenu = document.getElementById("user-menu");
   const userMenuButton = event.target.closest(
@@ -405,14 +404,14 @@ document.addEventListener("click", function (event) {
   }
 });
 
-// Initialize on page load
+
 window.addEventListener("load", () => {
   if (checkAuth()) {
     initDashboard();
   }
 });
 function setUserProfileDisplay() {
-  // Sidebar
+  
   const sidebarAvatar = document.getElementById("sidebar-user-avatar");
   const sidebarName = document.getElementById("sidebar-user-name");
   if (sidebarAvatar)
@@ -421,19 +420,18 @@ function setUserProfileDisplay() {
       "/placeholder.svg?height=40&width=40";
   if (sidebarName)
     sidebarName.textContent = localStorage.getItem("userName") || "John Doe";
-  // Header
+ 
   const headerAvatar = document.getElementById("header-user-avatar");
   if (headerAvatar)
     headerAvatar.src =
       localStorage.getItem("userAvatarThumb") ||
       "/placeholder.svg?height=32&width=32";
-  // Profile main avatar (optional, if present)
   const profileAvatar = document.getElementById("profile-avatar");
   if (profileAvatar)
     profileAvatar.src =
       localStorage.getItem("userAvatar") ||
       "/placeholder.svg?height=96&width=96";
-  // Profile name/email (optional, if present)
+  
   const profileName = document.getElementById("profile-name");
   if (profileName)
     profileName.textContent = localStorage.getItem("userName") || "John Doe";
@@ -444,7 +442,7 @@ function setUserProfileDisplay() {
 }
 window.addEventListener("load", setUserProfileDisplay);
 
-// Notification dropdown logic
+
 const notificationBtn = document.getElementById("notification-btn");
 const notificationDropdown = document.getElementById("notification-dropdown");
 
@@ -453,7 +451,7 @@ notificationBtn.addEventListener("click", function (e) {
   notificationDropdown.classList.toggle("hidden");
 });
 
-// Hide dropdown when clicking outside
+
 document.addEventListener("click", function (event) {
   if (
     notificationDropdown &&

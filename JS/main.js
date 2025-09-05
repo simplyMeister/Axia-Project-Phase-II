@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       });
 
-      // Navigation functionality
+      
       function toggleMobileMenu() {
         const menu = document.getElementById("mobile-menu");
         menu.classList.toggle("hidden");
@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", function () {
           .scrollIntoView({ behavior: "smooth" });
       }
 
-      // Authentication modal functionality
+     
       function showLogin() {
         hideAllModals();
         document.getElementById("auth-overlay").classList.remove("hidden");
@@ -58,7 +58,7 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("forgot-modal").classList.add("hidden");
       }
 
-      // Form handlers with API integration (preserved original logic)
+      
       async function handleLogin(event) {
         event.preventDefault();
         const formData = new FormData(event.target);
@@ -131,7 +131,6 @@ document.addEventListener("DOMContentLoaded", function () {
           });
 
           const data = await response.json();
-          console.log("[v0] Signup response:", data);
 
           if (response.ok) {
             showToast(
@@ -156,16 +155,16 @@ document.addEventListener("DOMContentLoaded", function () {
         const email = event.target.querySelector('input[type="email"]').value;
 
         showToast("Loading...", "info", 1200);
-        console.log("[v0] Processing forgot password request");
+       
 
         // Mock API call for forgot password
         try {
-          // Simulate API call
+          
           await new Promise((resolve) => setTimeout(resolve, 1000));
           showToast("Password reset link sent to " + email, "success");
           hideAuth();
         } catch (error) {
-          console.error("[v0] Forgot password error:", error);
+          console.error(" Forgot password error:", error);
           showToast("Error sending reset link: " + error.message, "error");
         }
       }
@@ -180,12 +179,12 @@ document.addEventListener("DOMContentLoaded", function () {
         toast.innerHTML = `<span>${message}</span>`;
         container.appendChild(toast);
 
-        // Animate in
+        
         setTimeout(() => {
           toast.classList.add("show");
         }, 100);
 
-        // Remove after duration
+        
         setTimeout(() => {
           toast.classList.remove("show");
           setTimeout(() => toast.remove(), 300);

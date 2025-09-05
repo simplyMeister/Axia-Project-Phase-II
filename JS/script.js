@@ -28,7 +28,7 @@
         submitBtn.disabled = true;
 
         try {
-          console.log("[v0] Testing ReqRes API...");
+          console.log("Testing ReqRes API...");
 
           const testResponse = await fetch("https://reqres.in/api/login", {
             method: "POST",
@@ -41,12 +41,12 @@
             }),
           });
 
-          console.log("[v0] Test response status:", testResponse.status);
+          console.log(" Test response status:", testResponse.status);
           const testData = await testResponse.text();
-          console.log("[v0] Test response body:", testData);
+          console.log(" Test response body:", testData);
 
           if (testResponse.ok) {
-            console.log("[v0] ReqRes API works without API key!");
+            console.log(" ReqRes API works without API key!");
             const data = JSON.parse(testData);
 
             // Store auth token
@@ -72,7 +72,7 @@
             }
           }
 
-          console.log("[v0] Trying with API key...");
+          console.log(" Trying with API key...");
           const response = await fetch("https://reqres.in/api/login", {
             method: "POST",
             headers: {
@@ -85,13 +85,13 @@
             }),
           });
 
-          console.log("[v0] API key response status:", response.status);
+          console.log(" API key response status:", response.status);
           const responseText = await response.text();
-          console.log("[v0] API key response body:", responseText);
+          console.log(" API key response body:", responseText);
 
           if (response.ok) {
             const data = JSON.parse(responseText);
-            console.log("[v0] Login successful with API key:", data);
+            console.log(" Login successful with API key:", data);
 
             // Store auth token
             if (data.token) {
@@ -119,7 +119,7 @@
             throw new Error(`HTTP ${response.status}: ${responseText}`);
           }
         } catch (error) {
-          console.error("[v0] Login error:", error);
+          console.error(" Login error:", error);
 
           // Show error
           submitBtn.innerHTML =

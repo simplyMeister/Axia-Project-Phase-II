@@ -304,7 +304,7 @@
                 });
                 
                 const data = await response.json();
-                console.log('[v0] Registration response:', data);
+                console.log('Registration response:', data);
                 
                 if (response.ok) {
                     // Show success message
@@ -326,7 +326,7 @@
                 } else {
                     if (data.error && data.error.includes('defined')) {
                         // ReqRes only accepts predefined test users
-                        alert('Demo Mode: ReqRes API only accepts predefined test users. Try using: eve.holt@reqres.in\n\nFor demo purposes, we\'ll create your account locally.');
+                        alert('Demo Mode: ReqRes API only accepts predefined test users. Try using: eve.holt@reqres.in');
                         
                         // Create account locally for demo
                         localStorage.setItem('userEmail', email);
@@ -345,7 +345,7 @@
                     }
                 }
             } catch (error) {
-                console.error('[v0] Registration error:', error);
+                console.error(' Registration error:', error);
                 
                 // Show error
                 submitBtn.innerHTML = '<i class="fas fa-exclamation-triangle mr-2"></i>Registration Failed';

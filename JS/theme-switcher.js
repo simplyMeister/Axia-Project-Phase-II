@@ -20,10 +20,10 @@ function createThemeElements() {
     <button class="theme-button theme-dark" data-theme="dark" title="Dark Theme">
       <i class="fas fa-moon"></i>
     </button>
-    <button class="theme-button theme-sunny" data-theme="sunny" title="Sunny Theme">
+    <button class="theme-button theme-sunny" data-theme="sunny" title="Ecclipse Theme">
       <i class="fas fa-sun"></i>
     </button>
-    <button class="theme-button theme-emerald-wave" data-theme="emerald-wave" title="Emerald Wave Theme">
+    <button class="theme-button theme-emerald-wave" data-theme="emerald-wave" title="Emerald Theme">
       <i class="fas fa-water"></i>
     </button>
   `;

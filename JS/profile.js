@@ -122,7 +122,7 @@ function logout() {
         function deleteAccount() {
             if (confirm('Are you sure you want to delete your account? This action cannot be undone.')) {
                 if (confirm('This will permanently delete all your data. Are you absolutely sure?')) {
-                    alert('Account deletion would be processed here.\n\nIn a real application, this would delete the user account and redirect to the homepage.');
+                    showToast('Account deletion would be processed here.\n\nIn a real application, this would delete the user account and redirect to the homepage.');
                     // logout();
                 }
             }
