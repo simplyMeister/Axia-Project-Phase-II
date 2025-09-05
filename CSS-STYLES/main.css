@@ -53,9 +53,10 @@
       }
 
       .hero-title:hover {
-        transform: scale(1.05);
+        transform: scale(1);
         text-shadow: 0 0 30px var(--primary), 0 0 60px var(--primary);
         animation: glow-pulse 2s infinite;
+        color: var(--primary);
       }
 
       @keyframes glow-pulse {
@@ -225,6 +226,7 @@
 
       @media (max-width: 1024px) {
         .bottom-nav .nav-links {
+          
           space-x: 4;
         }
 
