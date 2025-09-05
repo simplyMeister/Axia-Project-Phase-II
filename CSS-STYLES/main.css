@@ -1,4 +1,3 @@
- /* Base dark theme variables - ensure dark is default */
       :root {
         --dark-bg: #1a1a1a;
         --dark-card: #2d2d2d;
@@ -6,21 +5,20 @@
         --text-secondary: #9ca3af;
       }
 
-      /* Removed light theme variables that were causing white backgrounds */
 
       body {
         font-family: "Inter", sans-serif;
-        background-color: #1a1a1a !important; /* Force dark background */
-        color: #ffffff !important; /* Force white text */
+        background-color: #1a1a1a !important;
+        color: #ffffff !important;
         transition: background-color 0.3s ease, color 0.3s ease;
       }
 
-      /* Ensure html element also has dark background */
+    
       html {
         background-color: #1a1a1a !important;
       }
 
-      /* Custom cursor styles */
+     
       .custom-cursor {
         position: fixed;
         width: 20px;
@@ -45,7 +43,7 @@
         opacity: 0.5;
       }
 
-      /* Special hover effect for RCEET TECHNOLOGIES text */
+     
       .hero-title {
         position: relative;
         display: inline-block;
@@ -70,7 +68,7 @@
         }
       }
 
-      /* Toast notification styles */
+      
       .toast-container {
         position: fixed;
         top: 20px;
@@ -111,7 +109,7 @@
         border-color: #3b82f6;
       }
 
-      /* Theme toggle button styles */
+      
       .theme-toggle {
         position: fixed;
         top: 20px;
@@ -148,6 +146,7 @@
 
       .nav-link:hover {
         color: var(--primary);
+        
       }
 
       .btn-primary {
@@ -175,19 +174,19 @@
         backdrop-filter: blur(8px);
       }
 
-      /* Updated bottom navigation to always use dark background */
+      
       .bottom-nav {
         position: fixed;
         bottom: 0;
         left: 0;
         right: 0;
-        background: #1a1a1a !important; /* Solid dark background instead of rgba */
+        background: #1a1a1a !important;
         backdrop-filter: blur(10px);
         border-top: 1px solid #333;
         z-index: 30;
       }
 
-      /* Added centering for bottom nav on large screens */
+      
       @media (min-width: 1200px) {
         .bottom-nav .nav-links {
           justify-content: center;
@@ -200,7 +199,7 @@
         }
       }
 
-      /* Added responsive styles for bottom navigation */
+     
       @media (max-width: 768px) {
         .bottom-nav .nav-links {
           display: none;
