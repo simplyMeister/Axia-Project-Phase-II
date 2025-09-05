@@ -195,6 +195,7 @@ const upcomingDeadlines = [
     dueDate: "2 months",
     priority: "low",
   },
+  
 ];
 
 // UI Functions
