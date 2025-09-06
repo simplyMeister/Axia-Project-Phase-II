@@ -24,6 +24,29 @@ body {
 .theme-transition * {
     transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease;
 }
+/* Chrome, Edge, Safari */
+::-webkit-scrollbar {
+  width: 10px; /* adjust width */
+}
+
+::-webkit-scrollbar-track {
+  background: #1a1a1a; /* dark background to blend with site */
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, #404040, #464646, #474747);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(to bottom, #4d4d4d, #525252, #545454);
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #464646 #1a1a1a;
+}
 
 
 body.theme-sunny {
