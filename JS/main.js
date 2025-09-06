@@ -1,203 +1,198 @@
+document.addEventListener("DOMContentLoaded", () => {
+  const animationPlayer = document.getElementById("hero-animation")
+  if (animationPlayer) {
+    fetch("./assets/education-animation.json")
+      .then((response) => response.json())
+      .then((animationData) => {
+        animationPlayer.load(animationData)
+      })
+      .catch((error) => {
+        console.error("Error loading animation:", error)
+        // Fallback to a simple animation if the file fails to load
+        animationPlayer.src = "https://assets3.lottiefiles.com/packages/lf20_V9t630.json"
+      })
+  }
+})
 
-document.addEventListener("DOMContentLoaded", function () {
-        const animationPlayer = document.getElementById("hero-animation");
-        if (animationPlayer) {
-          fetch("./assets/education-animation.json")
-            .then((response) => response.json())
-            .then((animationData) => {
-              animationPlayer.load(animationData);
-            })
-            .catch((error) => {
-              console.error("Error loading animation:", error);
-              // Fallback to a simple animation if the file fails to load
-              animationPlayer.src =
-                "https://assets3.lottiefiles.com/packages/lf20_V9t630.json";
-            });
-        }
-      });
+function toggleMobileMenu() {
+  const menu = document.getElementById("mobile-menu")
+  menu.classList.toggle("hidden")
+}
 
-      
-      function toggleMobileMenu() {
-        const menu = document.getElementById("mobile-menu");
-        menu.classList.toggle("hidden");
-      }
+function scrollToServices() {
+  document.getElementById("services").scrollIntoView({ behavior: "smooth" })
+}
 
-      function scrollToServices() {
-        document
-          .getElementById("services")
-          .scrollIntoView({ behavior: "smooth" });
-      }
+function showLogin() {
+  hideAllModals()
+  document.getElementById("auth-overlay").classList.remove("hidden")
+  document.getElementById("login-modal").classList.remove("hidden")
+}
 
-     
-      function showLogin() {
-        hideAllModals();
-        document.getElementById("auth-overlay").classList.remove("hidden");
-        document.getElementById("login-modal").classList.remove("hidden");
-      }
+function showSignup() {
+  hideAllModals()
+  document.getElementById("auth-overlay").classList.remove("hidden")
+  document.getElementById("signup-modal").classList.remove("hidden")
+}
 
-      function showSignup() {
-        hideAllModals();
-        document.getElementById("auth-overlay").classList.remove("hidden");
-        document.getElementById("signup-modal").classList.remove("hidden");
-      }
+function showForgotPassword() {
+  hideAllModals()
+  document.getElementById("auth-overlay").classList.remove("hidden")
+  document.getElementById("forgot-modal").classList.remove("hidden")
+}
 
-      function showForgotPassword() {
-        hideAllModals();
-        document.getElementById("auth-overlay").classList.remove("hidden");
-        document.getElementById("forgot-modal").classList.remove("hidden");
-      }
+function hideAuth() {
+  hideAllModals()
+  document.getElementById("auth-overlay").classList.add("hidden")
+}
 
-      function hideAuth() {
-        hideAllModals();
-        document.getElementById("auth-overlay").classList.add("hidden");
-      }
+function hideAllModals() {
+  document.getElementById("login-modal").classList.add("hidden")
+  document.getElementById("signup-modal").classList.add("hidden")
+  document.getElementById("forgot-modal").classList.add("hidden")
+}
 
-      function hideAllModals() {
-        document.getElementById("login-modal").classList.add("hidden");
-        document.getElementById("signup-modal").classList.add("hidden");
-        document.getElementById("forgot-modal").classList.add("hidden");
-      }
+async function handleLogin(event) {
+  event.preventDefault()
 
-      
-      async function handleLogin(event) {
-        event.preventDefault();
-        const formData = new FormData(event.target);
-        const email =
-          formData.get("email") ||
-          event.target.querySelector('input[type="email"]').value;
-        const password =
-          formData.get("password") ||
-          event.target.querySelector('input[type="password"]').value;
+  const submitButton = event.target.querySelector('button[type="submit"]')
+  const originalText = submitButton.innerHTML
+  submitButton.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Signing In...'
+  submitButton.disabled = true
 
-        showToast("Loading...", "info", 1200);
-        console.log(" Attempting login with API key header");
+  const formData = new FormData(event.target)
+  const email = formData.get("email") || event.target.querySelector('input[type="email"]').value
+  const password = formData.get("password") || event.target.querySelector('input[type="password"]').value
 
-        try {
-          const response = await fetch("https://reqres.in/api/login", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              "x-api-key": "reqres-free-v1",
-            },
-            body: JSON.stringify({ email, password }),
-          });
+  console.log("Attempting login with API key header")
 
-          const data = await response.json();
-          console.log(" Login response:", data);
+  try {
+    const response = await fetch("https://reqres.in/api/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-api-key": "reqres-free-v1",
+      },
+      body: JSON.stringify({ email, password }),
+    })
 
-          if (response.ok) {
-            localStorage.setItem("authToken", data.token);
-            hideAuth();
-            showToast("Login successful! Redirecting...", "success");
-            setTimeout(() => {
-              window.location.href = "dashboard.html";
-            }, 1500);
-          } else {
-            showToast(
-              "Login failed: " + (data.error || "Invalid credentials"),
-              "error"
-            );
-          }
-        } catch (error) {
-          console.error(" Login error:", error);
-          showToast("Login error: " + error.message, "error");
-        }
-      }
+    const data = await response.json()
+    console.log("Login response:", data)
 
-      async function handleSignup(event) {
-        event.preventDefault();
-        const inputs = event.target.querySelectorAll("input");
-        const name = inputs[0].value;
-        const email = inputs[1].value;
-        const password = inputs[2].value;
-        const confirmPassword = inputs[3].value;
+    if (response.ok) {
+      localStorage.setItem("authToken", data.token)
+      hideAuth()
+      showToast("Login successful! Redirecting...", "success")
+      setTimeout(() => {
+        window.location.href = "dashboard.html"
+      }, 1500)
+    } else {
+      showToast("Login failed: " + (data.error || "Invalid credentials"), "error")
+      submitButton.innerHTML = originalText
+      submitButton.disabled = false
+    }
+  } catch (error) {
+    console.error("Login error:", error)
+    showToast("Login error: " + error.message, "error")
+    submitButton.innerHTML = originalText
+    submitButton.disabled = false
+  }
+}
 
-        if (password !== confirmPassword) {
-          showToast("Passwords do not match!", "error");
-          return;
-        }
+async function handleSignup(event) {
+  event.preventDefault()
 
-        showToast("Loading...", "info", 1200);
-        console.log(" Attempting signup with API key header");
+  const submitButton = event.target.querySelector('button[type="submit"]')
+  const originalText = submitButton.innerHTML
+  submitButton.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Creating Account...'
+  submitButton.disabled = true
 
-        try {
-          const response = await fetch("https://reqres.in/api/register", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              "x-api-key": "reqres-free-v1",
-            },
-            body: JSON.stringify({ email, password }),
-          });
+  const inputs = event.target.querySelectorAll("input")
+  const name = inputs[0].value
+  const email = inputs[1].value
+  const password = inputs[2].value
+  const confirmPassword = inputs[3].value
 
-          const data = await response.json();
+  if (password !== confirmPassword) {
+    showToast("Passwords do not match!", "error")
+    submitButton.innerHTML = originalText
+    submitButton.disabled = false
+    return
+  }
 
-          if (response.ok) {
-            showToast(
-              "Account created successfully! Please sign in.",
-              "success"
-            );
-            setTimeout(() => showLogin(), 1500);
-          } else {
-            showToast(
-              "Registration failed: " + (data.error || "Please try again"),
-              "error"
-            );
-          }
-        } catch (error) {
-          console.error(" Signup error:", error);
-          showToast("Registration error: " + error.message, "error");
-        }
-      }
+  console.log("Attempting signup with API key header")
 
-      async function handleForgotPassword(event) {
-        event.preventDefault();
-        const email = event.target.querySelector('input[type="email"]').value;
+  try {
+    const response = await fetch("https://reqres.in/api/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-api-key": "reqres-free-v1",
+      },
+      body: JSON.stringify({ email, password }),
+    })
 
-        showToast("Loading...", "info", 1200);
-       
+    const data = await response.json()
 
-        // Mock API call for forgot password
-        try {
-          
-          await new Promise((resolve) => setTimeout(resolve, 1000));
-          showToast("Password reset link sent to " + email, "success");
-          hideAuth();
-        } catch (error) {
-          console.error(" Forgot password error:", error);
-          showToast("Error sending reset link: " + error.message, "error");
-        }
-      }
+    if (response.ok) {
+      showToast("Account created successfully! Please sign in.", "success")
+      setTimeout(() => showLogin(), 1500)
+    } else {
+      showToast("Registration failed: " + (data.error || "Please try again"), "error")
+      submitButton.innerHTML = originalText
+      submitButton.disabled = false
+    }
+  } catch (error) {
+    console.error("Signup error:", error)
+    showToast("Registration error: " + error.message, "error")
+    submitButton.innerHTML = originalText
+    submitButton.disabled = false
+  }
+}
 
-      // Toast notification system
-      function showToast(message, type = "info", duration = 4000) {
-        const container = document.getElementById("toast-container");
-        if (!container) return;
+async function handleForgotPassword(event) {
+  event.preventDefault()
+  const email = event.target.querySelector('input[type="email"]').value
 
-        const toast = document.createElement("div");
-        toast.className = `toast ${type}`;
-        toast.innerHTML = `<span>${message}</span>`;
-        container.appendChild(toast);
+  showToast("Loading...", "info", 1200)
 
-        
-        setTimeout(() => {
-          toast.classList.add("show");
-        }, 100);
+  // Mock API call for forgot password
+  try {
+    await new Promise((resolve) => setTimeout(resolve, 1000))
+    showToast("Password reset link sent to " + email, "success")
+    hideAuth()
+  } catch (error) {
+    console.error("Forgot password error:", error)
+    showToast("Error sending reset link: " + error.message, "error")
+  }
+}
 
-        
-        setTimeout(() => {
-          toast.classList.remove("show");
-          setTimeout(() => toast.remove(), 300);
-        }, duration);
-      }
+// Toast notification system
+function showToast(message, type = "info", duration = 4000) {
+  const container = document.getElementById("toast-container")
+  if (!container) return
 
-      
-      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-        anchor.addEventListener("click", function (e) {
-          e.preventDefault();
-          const target = document.querySelector(this.getAttribute("href"));
-          if (target) {
-            target.scrollIntoView({ behavior: "smooth" });
-          }
-        });
-      });
+  const toast = document.createElement("div")
+  toast.className = `toast ${type}`
+  toast.innerHTML = `<span>${message}</span>`
+  container.appendChild(toast)
+
+  setTimeout(() => {
+    toast.classList.add("show")
+  }, 100)
+
+  setTimeout(() => {
+    toast.classList.remove("show")
+    setTimeout(() => toast.remove(), 300)
+  }, duration)
+}
+
+document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+  anchor.addEventListener("click", function (e) {
+    e.preventDefault()
+    const target = document.querySelector(this.getAttribute("href"))
+    if (target) {
+      target.scrollIntoView({ behavior: "smooth" })
+    }
+  })
+})
